@@ -1,0 +1,862 @@
+﻿<!DOCTYPE html>
+
+<?php
+
+	$connect = mysqli_connect('localhost', 'root', '', 'test') or die(mysql_error());
+	mysqli_query ($connect, 'SET NAMES utf8');
+    $list_result = 'SELECT * FROM sensor ORDER BY id DESC LIMIT 1 ';
+    $result = mysqli_query($connect, $list_result);
+
+
+ for($i = 0; $i < 14; $i++){
+        $row = mysqli_fetch_row($result);
+        $value[] = $row[2];
+}
+
+?>
+
+<?php
+
+    $connect = mysqli_connect("localhost", "root", "", "test") or die("fail to connect");
+    $query9 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id<=6";
+    $query10 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>6 and id<=12";
+    $query11 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>12 and id<=18";
+    $query12 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>18 and id<=24";
+    $query1 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>24 and id<=30";
+    $query2 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>30 and id<=36";
+    $query3 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>36 and id<=42";
+    $query4 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>42 and id<=48";
+    $query5 = "SELECT MIN(value), MAX(value), ROUND(AVG(value)) FROM sensor WHERE id>48 and id<=54";
+
+    $data9 = mysqli_query($connect, $query9);
+    $data10 = mysqli_query($connect, $query10);
+    $data11 = mysqli_query($connect, $query11);
+    $data12 = mysqli_query($connect, $query12);
+    $data1 = mysqli_query($connect, $query1);
+    $data2 = mysqli_query($connect, $query2);
+    $data3 = mysqli_query($connect, $query3);
+    $data4 = mysqli_query($connect, $query4);
+    $data5 = mysqli_query($connect, $query5);
+
+
+    while($result = mysqli_fetch_array($data9)){
+        $min9 = $result['MIN(value)'];
+        $max9 = $result['MAX(value)'];
+        $avg9 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data10)){
+        $min10 = $result['MIN(value)'];
+        $max10 = $result['MAX(value)'];
+        $avg10 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data11)){
+        $min11 = $result['MIN(value)'];
+        $max11 = $result['MAX(value)'];
+        $avg11 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data12)){
+        $min12 = $result['MIN(value)'];
+        $max12 = $result['MAX(value)'];
+        $avg12 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data1)){
+        $min1 = $result['MIN(value)'];
+        $max1 = $result['MAX(value)'];
+        $avg1 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data2)){
+        $min2 = $result['MIN(value)'];
+        $max2 = $result['MAX(value)'];
+        $avg2 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data3)){
+        $min3 = $result['MIN(value)'];
+        $max3 = $result['MAX(value)'];
+        $avg3 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data4)){
+        $min4 = $result['MIN(value)'];
+        $max4 = $result['MAX(value)'];
+        $avg4 = $result['ROUND(AVG(value))'];
+    }
+
+    while($result = mysqli_fetch_array($data5)){
+        $min5 = $result['MIN(value)'];
+        $max5 = $result['MAX(value)'];
+        $avg5 = $result['ROUND(AVG(value))'];
+    }
+
+?>
+
+
+<html lang="en">
+<head>
+    <title>아두이노 소음측정기</title>
+    <meta charset="utf-8">
+
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box
+        }
+
+        .mySlides1, .mySlides2 {
+            display: none
+        }
+
+        img {
+            vertical-align: middle;
+        }
+
+        /* Slideshow container */
+        .slideshow-container {
+            max-width: 1000px;
+            position: relative;
+            margin: auto;
+        }
+
+        /* Next & previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        /* Position the "next button" to the right */
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+            /* On hover, add a grey background color */
+            .prev:hover, .next:hover {
+                background-color: #f1f1f1;
+                color: black;
+            }
+    </style>
+    <style>
+        .customoverlay {
+            position: relative;
+            bottom: 85px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            border-bottom: 2px solid #ddd;
+            float: left;
+        }
+
+            .customoverlay:nth-of-type(n) {
+                border: 0;
+                box-shadow: 0px 1px 2px #888;
+            }
+
+            .customoverlay a {
+                display: block;
+                text-decoration: none;
+                color: #000;
+                text-align: center;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: bold;
+                overflow: hidden;
+                background: #d95050;
+                background: #d95050 url(http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png) no-repeat right 14px center;
+            }
+
+            .customoverlay .title {
+                display: block;
+                text-align: center;
+                background: #fff;
+                margin-right: 35px;
+                padding: 10px 15px;
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .customoverlay:after {
+                content: '';
+                position: absolute;
+                margin-left: -12px;
+                left: 50%;
+                bottom: -12px;
+                width: 22px;
+                height: 12px;
+                background: url('http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')
+            }
+    </style>
+    <style>
+        .my-custom-scrollbar {
+            position: relative;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .table-wrapper-scroll-y {
+            display: block;
+        }
+    </style>
+
+</head>
+<body>
+
+
+
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="#">NOISE.GG</a>
+
+        <!-- Links -->
+        <ul class="navbar-nav">
+
+            <!-- Dropdown -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    추가기능
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" data-toggle="modal" data-target="#myModalmap">측정기위치 <i class='fas fa-map-marker-alt'></i></a>
+                    <a class="dropdown-item" href="#">Link 2</a>
+                    <a class="dropdown-item" href="#">Link 3</a>
+                </div>
+            </li>
+
+        </ul>
+</nav>
+
+    <div class="slideshow-container">
+        <div class="mySlides1">
+            <img src="/img/메인1.png" style="width:100%">
+        </div>
+
+        <div class="mySlides1">
+            <img src="/img/메인2.jpg" style="width:100%">
+        </div>
+
+        <div class="mySlides1">
+            <img src="/img/test1.jpg" style="width:100%">
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1, 0)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1, 0)">&#10095;</a>
+    </div>
+
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5><a data-toggle="modal" data-target="#myModalReview1">클라우드9  (1)</a>  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-bar-chart "></i></button></h5></a>
+                            <h6 id="fontColor">현재소음 <? echo $value[0]; ?></h6>
+                            <p>#공주대학교 10공학관</p>
+                        </li>
+                    </ul>
+                </nav>
+
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5><a data-toggle="modal" data-target="#myModalReview2">클라우드9  (2)</a> <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal2"><i class="fa fa-bar-chart"></i></button></h5></a>
+
+                            <h6>현재소음 ??</h6>
+                            <p>#공주대학교 학생회관</p>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5><a data-toggle="modal" data-target="#">VAGUE </a> <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#"><i class="fa fa-bar-chart"></i></button></h5></a>
+
+                            <h6>현재소음 ??</h6>
+                            <p>#공주대학교 VAGUE</p>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm-4">
+                <nav class="navbar bg-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link"><h5>미등록    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-bar-chart"></i></button></h5></a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- 카카오맵 모달 -->
+<div class="modal fade" id="myModalmap">
+<div class="modal-dialog modal-dialog-centered">
+           <div class="modal-content">
+
+                <!-- 모달의 머릿글 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">측정기 위치</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+                    <div id="map" style="width:100%;height:350px;"></div>
+
+                </div>
+
+                <!-- 모달 바닥글 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 클라우드9(1) 그래프모달 -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- 모달의 머릿글 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">시간별 소음그래프</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <div id="chart_div1" style="width:100%"></div>
+
+                </div>
+
+                <!-- 모달 바닥글 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 클라우드9(1) 방문후기모달 -->
+    <div class="modal fade" id="myModalReview1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- 모달의 머릿글 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">방문후기작성</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="w-25">ID</th>
+                                    <th scope="col">내용</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                $conn = mysqli_connect("localhost", "root", "", "test");
+                                mysqli_query ($conn, 'SET NAMES utf8');
+                                // Check connection
+                                if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                                }
+                                $sql = "SELECT id, text FROM updatetxt ORDER BY pk DESC";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                echo "
+                                <tr><td>" . $row["id"]. "</td><td>" . $row["text"] ."</td></tr>";
+                                }
+                                echo "
+                        </table>";
+                        } else { echo "0 results"; }
+                        $conn->close();
+                        ?>
+                        </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+                <!-- 모달 바닥글 -->
+                <div class="modal-footer">
+
+                    <div class="container mt-3">
+                        <form method="POST" action="../updateC91.php?mode=insert">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="id" placeholder="ID">
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="text" placeholder="후기작성">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm" type="submit">등록</button>
+                                </div>
+                            </div>
+
+                    </div>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 클라우드9(2) 그래프모달 -->
+    <div class="modal fade" id="myModal2">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- 모달의 머릿글 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">시간별 소음그래프</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+                    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                    <div id="chart_div2" style="width:100%"></div>
+
+                </div>
+
+                <!-- 모달 바닥글 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 클라우드9(2) 방문후기모달 -->
+    <div class="modal fade" id="myModalReview2">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <!-- 모달의 머릿글 -->
+                <div class="modal-header">
+                    <h4 class="modal-title">방문후기작성</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- 모달 본문 -->
+                <div class="modal-body">
+
+                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+                        <table class="table table-bordered table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th class="w-25">ID</th>
+                                    <th scope="col">내용</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <?php
+                                $conn = mysqli_connect("localhost", "root", "", "test");
+                                mysqli_query ($conn, 'SET NAMES utf8');
+                                // Check connection
+                                if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                                }
+                                $sql = "SELECT id, text FROM updatetxt ORDER BY pk DESC";
+                                $result = $conn->query($sql);
+                                if ($result->num_rows > 0) {
+                                // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                echo "
+                                <tr><td>" . $row["id"]. "</td><td>" . $row["text"] ."</td></tr>";
+                                }
+                                echo "
+                        </table>";
+                        } else { echo "0 results"; }
+                        $conn->close();
+                        ?>
+                        </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+                <!-- 모달 바닥글 -->
+                <div class="modal-footer">
+
+                    <div class="container mt-3">
+                        <form method="POST" action="../updateC91.php?mode=insert">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="id" placeholder="ID">
+                                <div class="input-group-append">
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" name="text" placeholder="후기작성">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm" type="submit">등록</button>
+                                </div>
+                            </div>
+
+                    </div>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- 이미지 변경 -->
+<script>
+var slideIndex = [1,1];
+var slideId = ["mySlides1", "mySlides2"]
+showSlides(1, 0);
+showSlides(1, 1);
+
+function plusSlides(n, no) {
+  showSlides(slideIndex[no] += n, no);
+}
+
+function showSlides(n, no) {
+  var i;
+  var x = document.getElementsByClassName(slideId[no]);
+  if (n > x.length) {slideIndex[no] = 1}
+  if (n < 1) {slideIndex[no] = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  x[slideIndex[no]-1].style.display = "block";
+}
+</script>
+
+<!-- 글자색 변경 -->
+<script type="text/javascript">
+var i=<? echo $value[0]; ?>;
+    if(0<=i && i<=50){
+        document.getElementById ( "fontColor" ).style.color = 'green';
+
+    }
+    else if(51<=i && i<=80){
+
+    	document.getElementById ( "fontColor" ).style.color = 'orange';
+
+
+    }
+    else{
+
+        document.getElementById ( "fontColor" ).style.color = 'red';
+    }
+
+</script>
+
+
+
+<script>
+
+<!-- 구글 차트 클라우드9(1)-->
+setTimeout(function(){
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawStacked);
+
+function drawStacked() {
+      var data1 = new google.visualization.DataTable();
+      data1.addColumn('timeofday', 'Time of Day');
+      data1.addColumn('number', '');
+      data1.addColumn('number', '');
+	  data1.addColumn('number', '');
+
+      data1.addRows([
+
+        [{v: [9, 0, 0], f: '9 am'}, <? echo $min9; ?>, <? echo $max9; ?>, <? echo $avg9; ?>],
+        [{v: [10, 0, 0], f:'10 am'}, <? echo $min10; ?>, <? echo $max10; ?>, <? echo $avg10; ?>],
+        [{v: [11, 0, 0], f: '11 am'}, <? echo $min11; ?>, <? echo $max11; ?>, <? echo $avg11; ?>],
+        [{v: [12, 0, 0], f: '12 pm'}, <? echo $min12; ?>, <? echo $max12; ?>, <? echo $avg12; ?>],
+        [{v: [13, 0, 0], f: '1 pm'}, <? echo $min1; ?>, <? echo $max1; ?>, <? echo $avg1; ?>],
+        [{v: [14, 0, 0], f: '2 pm'}, <? echo $min2; ?>, <? echo $max2; ?>, <? echo $avg2; ?>],
+        [{v: [15, 0, 0], f: '3 pm'}, <? echo $min3; ?>, <? echo $max3; ?>, <? echo $avg3; ?>],
+        [{v: [16, 0, 0], f: '4 pm'}, <? echo $min4; ?>, <? echo $max4; ?>, <? echo $avg4; ?>],
+        [{v: [17, 0, 0], f: '5 pm'}, <? echo $min5; ?>, <? echo $max5; ?>, <? echo $avg5; ?>],
+      ]);
+
+      var options1 = {
+
+        title: '수집된 소음데이터를 그래프로 확인해보세요!',
+        isStacked: true,
+		series: {
+            2: {
+                type: 'line'
+            }
+        },
+        hAxis: {
+          //title: '시간',
+          format: 'h:mm a',
+          viewWindow: {
+            min: [8, 30, 0],
+            max: [17, 30, 0],
+			avg: [17, 30, 0]
+          }
+        }
+
+      };
+
+      var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+
+      chart1.draw(data1, options1);
+
+    }
+	}, 1000);
+</script>
+
+<script>
+
+<!-- 구글 차트 클라우드9(2)-->
+setTimeout(function(){
+google.charts.load('current', {packages: ['corechart', 'bar']});
+google.charts.setOnLoadCallback(drawStacked);
+
+function drawStacked() {
+      var data2 = new google.visualization.DataTable();
+      data2.addColumn('timeofday', 'Time of Day');
+      data2.addColumn('number', '');
+      data2.addColumn('number', '');
+
+      data2.addRows([
+        [{v: [8, 0, 0], f: '8 am'}, 1, 2],
+        [{v: [9, 0, 0], f: '9 am'}, 1, 4],
+        [{v: [10, 0, 0], f:'10 am'}, 1, 4],
+        [{v: [11, 0, 0], f: '11 am'}, 1, 11],
+        [{v: [12, 0, 0], f: '12 pm'}, 1, 13],
+        [{v: [13, 0, 0], f: '1 pm'}, 1, 2],
+        [{v: [14, 0, 0], f: '2 pm'}, 1, 2],
+        [{v: [15, 0, 0], f: '3 pm'}, 1, 2],
+        [{v: [16, 0, 0], f: '4 pm'}, 1, 6],
+        [{v: [17, 0, 0], f: '5 pm'}, 1, 7],
+      ]);
+
+      var options2 = {
+        title: '수집된 소음데이터를 그래프로 확인해보세요!',
+        isStacked: true,
+        hAxis: {
+          //title: '시간',
+          format: 'h:mm a',
+          viewWindow: {
+            min: [7, 30, 0],
+            max: [17, 30, 0]
+          }
+        }
+
+      };
+
+
+      var chart2 = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+
+      chart2.draw(data2, options2);
+
+    }
+	}, 1000);
+</script>
+<!-- 카카오 맵 -->
+
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c90a57921c938dfec7e1522d860b5fc0"></script>
+<script>
+
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new daum.maps.LatLng(36.850860, 127.153217), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
+    };
+	setTimeout(function(){
+	var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+	//var markerPosition  = new daum.maps.LatLng(36.850860, 127.153217);
+
+        //latlng: new daum.maps.LatLng(36.850800, 127.150052)
+
+var imageSrc = '/img/RRR.png', // 마커이미지의 주소입니다
+    imageSize = new daum.maps.Size(64, 69), // 마커이미지의 크기입니다
+    imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption),
+    markerPosition1 = new daum.maps.LatLng(36.850860, 127.153217); // 마커가 표시될 위치입니다
+	markerPosition2 = new daum.maps.LatLng(36.850800, 127.150052); // 마커가 표시될 위치입니다
+	markerPosition3 = new daum.maps.LatLng(36.852198, 127.149902);
+// 마커를 생성합니다
+var marker1 = new daum.maps.Marker({
+  position: markerPosition1,
+  image: markerImage // 마커이미지 설정
+});
+var marker2 = new daum.maps.Marker({
+  position: markerPosition2,
+  image: markerImage // 마커이미지 설정
+});
+var marker3 = new daum.maps.Marker({
+  position: markerPosition3,
+  image: markerImage // 마커이미지 설정
+});
+// 마커가 지도 위에 표시되도록 설정합니다
+marker1.setMap(map);
+marker2.setMap(map);
+marker3.setMap(map);
+// 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+var content1 = '<div class="customoverlay">' +
+    '  <a href="https://place.map.kakao.com/19043371" target="_blank">' +
+    '    <span class="title">클라우드9 (1)</span>' +
+    '  </a>' +
+    '</div>';
+var content2 = '<div class="customoverlay">' +
+    '  <a href="https://place.map.kakao.com/19043371" target="_blank">' +
+    '    <span class="title">클라우드9 (2)</span>' +
+    '  </a>' +
+    '</div>';
+var content3 = '<div class="customoverlay">' +
+    '  <a href="https://map.kakao.com/?q=36.852198,%20127.149902" target="_blank">' +
+    '    <span class="title">VAGUE</span>' +
+    '  </a>' +
+    '</div>';
+
+
+// 커스텀 오버레이가 표시될 위치입니다
+var position1 = new daum.maps.LatLng(36.850860, 127.153217);
+var position2 = new daum.maps.LatLng(36.850800, 127.150052);
+var position3 = new daum.maps.LatLng(36.852198, 127.149902);
+
+// 커스텀 오버레이를 생성합니다
+var customOverlay = new daum.maps.CustomOverlay({
+    map: map,
+    position: position1,
+    content: content1,
+    yAnchor: 1
+});
+var customOverlay = new daum.maps.CustomOverlay({
+    map: map,
+    position: position2,
+    content: content2,
+    yAnchor: 1
+});
+var customOverlay = new daum.maps.CustomOverlay({
+    map: map,
+    position: position3,
+    content: content3,
+    yAnchor: 1
+});
+}, 3000);
+</script>
+
+
